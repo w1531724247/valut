@@ -4,8 +4,4 @@ import reptileModule
 
 reptile = reptileModule.Reptile()
 
-print(reptile.getTBody())
-'''
-for set in buyE.atleastContainThreeOddNumArray():
-    print(set)
-    '''
+print(reptile.lastArrayOfCount(5))
