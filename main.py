@@ -1,10 +1,11 @@
 #! python3
 
-import buyLotteryModule
+import reptileModule
 
-buy = buyLotteryModule.BuyEvent()
+reptile = reptileModule.Reptile()
 
-threeArray = buy.threeNumArray()
-
-for th in threeArray:
-    print(th.threeNumSet)
+print(reptile.getTBody())
+'''
+for set in buyE.atleastContainThreeOddNumArray():
+    print(set)
+    '''
