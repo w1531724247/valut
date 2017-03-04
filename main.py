@@ -1,24 +1,21 @@
 #! python3
 
-import buyLotteryModule
+import winRate
+import reptileModule
 
-buyE = buyLotteryModule.BuyEvent()
+reptileM = reptileModule.Reptile()
+winR = winRate.WinRate()
+historyArray = winR.toDayNotAppearNum()
+print(len(historyArray))
+"""
+dCount  = 0
+while count > 0:
+    numSet = historyArray.pop()
+    for num in historyArray:
+        if num == numSet:
+            dCount += 1
+            print(num, " == ", numSet)
+    count -= 1
 
-resultDict = buyE.giveMeANumber()
-resultNum = {}
-
-values = []
-for x in range(1,12):
-    value = resultDict[x]
-    values.append(value)
-
-values.sort()
-values = values[-3:]
-
-for v in values:
-    for w in range(1,12):
-        vl = resultDict[w]
-        if vl == v:
-            resultNum[w] = v
-
-print(resultNum)
+print(dCount)
+"""
