@@ -23,7 +23,7 @@ class Reptile:
 
         return  tBodyHtmlString
 
-    #提取历史开奖结果
+    #最近一天的历史开奖结果
     def historyResultArray(self):
         tBodyString = self.tBody()
         pattern = re.compile(r'<td class="chart_table_td red_ball.>\d\d</td>')
@@ -42,6 +42,14 @@ class Reptile:
                 winNumber = set()
 
         return numberArray
+
+     #最近一天的历史开奖结果, 删除最早的5期, 将剩下的79期作为参考, 与接下来追号的5期, 组成一个完整的周期
+    def  referenceArray(self):
+        historyArray = self.historyResultArray()
+        for i in range(0, 5):
+            del historyArray[i]
+
+        return historyArray
 
     #获取最近几期的结果
     def lastArrayOfCount(self, count = 0):

@@ -5,8 +5,8 @@ import reptileModule
 
 reptileM = reptileModule.Reptile()
 winR = winRate.WinRate()
-historyArray = winR.toDayNotAppearNum()
-print(len(historyArray))
+array = winR.notAppearedThreeOddNumArrayInLast13Terms()
+
 """
 dCount  = 0
 while count > 0:

@@ -7,9 +7,15 @@ import fiveNumMudole
 
 class WinRate:
     #从11位数中取5位, 总共有462中情况, 每天84期, 相当于从462个数中取84个数, 但是有10个数,出现了两次, 所以一天这84个数中,
-    #有74个都是只出现一次的, 所以每一个五位数, 每一次出现的概率是1/462, 每一天出现的概率是84/462, 也就是说假如一个数今天出现过了, 那么今天再次出现的概率就很小,基本可以忽略不计,
+    #有74个都是只出现一次的, 所以每一个五位数, 每一次出现的概率是1/462, 每一天出现的概率是84/462, 也就是说假如一个数今天出现过了,
+    #那么今天再次出现的概率就很小,基本可以忽略不计,
     #所以再买的话就从今天还没出现过的数字里买
-
+    #因为是以84期为一个单位, 而追号期数为5期, 所以要以之前79期作为接下来五期的依据, 一遍过去的79期, 与接下来的5期组成一个单位周期
+    #每一组三位奇数, 每天平均出现5次, 每次出现的平均间隔是16期, 所以在过去13期内出现过的奇数组合, 在接下来的5期内出现的概率变小
+    #在过去的32期里面总共出现了33次三个奇数的情况, 涉及15个奇数组, 平均每个出现了两次,
+    #在过去的16期里面总共出现了19次三个奇数的情况, 涉及12个奇数组, 有7个出现了两次
+    #在过去的13期里面总共出现了14次三个奇数的情况, 涉及11个奇数组, 有3个出现了两次
+    
     totalCost = 0 #此次购买的总成本 = 注数*2
     singleCost = 2 #单注彩票的价格
     winRate = 0.0 #此次购买中奖的概率
@@ -328,6 +334,51 @@ class WinRate:
 
         return fiveNumArray
 
+    #每一个三位奇数组成的组合今天已经出现的次数
+    def everyThreeOddNumHasAppearTimes(self):
+        threeOddNumArray = self.threeNumArray()
+        referenceArray = self.__reptlie.referenceArray()
+        totalCount = 0
+        for threeOddNumModel in threeOddNumArray:
+            appearCount = 0
+            threeNumSet = threeOddNumModel.numSet
+            for numSet in referenceArray:
+                if threeNumSet == (threeNumSet & numSet):
+                    appearCount += 1
+                    totalCount += 1
+            print(threeNumSet, ":appearcount = ", appearCount)
+        print("totalCount: ", totalCount)
+        return
+
+    #统计在最近的13期中出现过的三位奇数的组合
+    def appearedThreeOddNumArrayInLast13Terms(self):
+        last13TermNum = self.__reptlie.lastArrayOfCount(13)
+        appearArray = []
+        for threeOddNumModel in self.threeNumArray():
+            threeNumSet = threeOddNumModel.numSet
+            for fiveNumSet in last13TermNum:
+                if threeNumSet == (threeNumSet & fiveNumSet):
+                    appearArray.append(threeNumSet)
+        return appearArray
+
+    #在最近13期中没有出现的三位奇数的组合在,接下来五期中出现的概率变大
+    def notAppearedThreeOddNumArrayInLast13Terms(self):
+        threeNumArray = []
+        for threeNumModel in self.threeNumArray():
+            threeNumArray.append(threeNumModel.numSet)
+        print("threeNumArray: ", len(threeNumArray))
+        appearedNumArray = self.appearedThreeOddNumArrayInLast13Terms()
+        print("appearedNumArray: ", len(appearedNumArray))
+        notAppearNumArray = []
+        for numSet in threeNumArray:
+            notFound = True
+            for appearNumSet in appearedNumArray:
+                if appearNumSet == numSet:
+                    notFound = False
+            if notFound:
+                notAppearNumArray.append(numSet)
+        print("notAppearNumArray: ", len(notAppearNumArray))
+        return notAppearNumArray
 
     #充值每一个数字在接下来的三次里出现的概率
     def resetEveryNumAppearRateInNextThreeTimes(self):
