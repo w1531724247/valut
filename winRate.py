@@ -366,9 +366,7 @@ class WinRate:
         threeNumArray = []
         for threeNumModel in self.threeNumArray():
             threeNumArray.append(threeNumModel.numSet)
-        print("threeNumArray: ", len(threeNumArray))
         appearedNumArray = self.appearedThreeOddNumArrayInLast13Terms()
-        print("appearedNumArray: ", len(appearedNumArray))
         notAppearNumArray = []
         for numSet in threeNumArray:
             notFound = True
@@ -377,7 +375,6 @@ class WinRate:
                     notFound = False
             if notFound:
                 notAppearNumArray.append(numSet)
-        print("notAppearNumArray: ", len(notAppearNumArray))
         return notAppearNumArray
 
     #充值每一个数字在接下来的三次里出现的概率

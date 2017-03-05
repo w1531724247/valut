@@ -3,19 +3,19 @@
 import winRate
 import reptileModule
 
-reptileM = reptileModule.Reptile()
 winR = winRate.WinRate()
-array = winR.notAppearedThreeOddNumArrayInLast13Terms()
+notAppearNumarray = winR.notAppearedThreeOddNumArrayInLast13Terms()
 
-"""
-dCount  = 0
-while count > 0:
-    numSet = historyArray.pop()
-    for num in historyArray:
-        if num == numSet:
-            dCount += 1
-            print(num, " == ", numSet)
-    count -= 1
+oddNumArray = [1,3,5,7,9,11]
+oddNumRemainCount = {}
 
-print(dCount)
-"""
+print(notAppearNumarray)
+
+for num in oddNumArray:
+    appearCount = 0
+    for numSet in notAppearNumarray:
+        if num in numSet:
+            appearCount += 1
+    oddNumRemainCount[num] = appearCount
+
+print(oddNumRemainCount)
